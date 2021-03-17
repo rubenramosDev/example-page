@@ -1,43 +1,47 @@
 /*========== NAVBAR TRANSPARENT TO SOLID ==========*/
-$(document).ready(function () {
-    $(window).scroll(checkScroll);
-    function checkScroll() {
-        if ($(window).scrollTop() >= 300) {
-            $('.navbar').addClass('solid');
-        } else {
-            $('.navbar').removeClass('solid');
-        }
+$(document).ready(function () { //when document(DOM) loads completely
+    checkScroll(); //check if page is scrolled
+    $(window).scroll(checkScroll); //get scroll position of window
+});
+
+function checkScroll() { //check if page is scrolled
+    if ($(window).scrollTop() >= 300) { //if window is scrolled 300px or more
+        $('.navbar').addClass('solid'); //add class 'solid' to element with class 'navbar'
+    } else { //if page is not scrolled 300px from top
+        $('.navbar').removeClass('solid'); //remove class 'solid' from navbar element
+    }
+}
+
+
+/*========== ADD SOLID CLASS TO NAVBAR WHEN TOGGLED ==========*/
+$('.navbar-toggler').click(function () { //when navbar-toggler is clicked
+    if ($(window).scrollTop() <= 300) { //if window scrolled 300px or less from top
+        $("nav.navbar").toggleClass("solid-toggle"); //add the solid class to navbar
     }
 });
 
-/*========== ADD SOLID CLASS TO NAVBAR WHEN TOGGLED ==========*/
-$(document).ready(function () {
-    checkScroll();
-    $(window).scroll(checkScroll);
-    $('.navbar-toggler').click(function () {
-        if ($(window).scrollTop() <= 300) {
-            $('nav.navbar').toggleClass('solid-toggle');
-        }
-    });
-});
 
-/*========== CLOSE MOBILE MENU ON CLICK & SMOOTH SCROLL TO LINK ==========*/
+/*========== CLOSE MOBILE MENU ON CLICK & SMOOTH SCROLL TO LINK a[href^="#"] ==========*/
 $(document).on('click', 'a[href^="#"]', function (event) {
     event.preventDefault();
     $('.navbar-toggler').addClass('collapsed');
     $('#navbarResponsive').removeClass('show');
 
     setTimeout(function () {
-        $('#navbarResponsive').removeClass('solid-toggle');
-    },300);
+        $('nav.navbar').removeClass('solid-toggle');
+    }, 300);
 
-    $('html', 'body').animate({
+    $('html, body').animate({
         scrollTop: $($.attr(this, 'href')).offset().top
-    }, 1500);
+    }, 1000);
 });
 
 /*========== BOUNCING DOWN ARROW ==========*/
-
+$(document).ready(function () {
+    $(window).scroll(function () {
+        $('.arrow').css('opacity', 1 - $(window).scrollTop() / 250);
+    });
+});
 
 /*========== LIGHTBOX IMAGE GALLERY ==========*/
 
@@ -112,7 +116,7 @@ $(function () {
                 type: "POST",
                 url: url,
                 data: $(this).serialize(),
-                success: function (data) {
+                sFuccess: function (data) {
                     // data = JSON object that contact.php returns
 
                     // we recieve the type of the message: success x danger and apply it to the
@@ -134,4 +138,4 @@ $(function () {
             return false;
         }
     })
-});
+}); F
